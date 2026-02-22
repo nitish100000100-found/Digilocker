@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DigiLocker - Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600px;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .doc-title {
+            margin-bottom: 20px;
+            color: #764ba2;
+        }
+
+        .preview {
+            margin-bottom: 20px;
+        }
+
+        .preview img {
+            width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .view-btn {
+            background: #667eea;
+        }
+
+        .view-btn:hover {
+            background: #5563c1;
+        }
+
+        .download-btn {
+            background: #28a745;
+        }
+
+        .download-btn:hover {
+            background: #218838;
+        }
+
+        @media (max-width: 500px) {
+            .buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Welcome to DigiLocker</h1>
+
+        <p class="welcome">
+            Hello <strong><%= username %></strong>, here is your file:
+        </p>
+
+        <h2 class="doc-title"><%= key %></h2>
+
+        <div class="preview">
+            <img src="/<%= value %>" alt="Document Image">
+        </div>
+
+        <div class="buttons">
+            <a href="/<%= value %>" target="_blank" class="btn view-btn">
+                View Full Image
+            </a>
+
+            <a href="/<%= value %>" download class="btn download-btn">
+                Download File
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

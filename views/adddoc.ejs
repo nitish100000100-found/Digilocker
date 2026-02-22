@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Document</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 45px 35px;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+    color: white;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-text {
+    font-size: 14px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.card h2 {
+    font-size: 26px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 30px;
+}
+
+/* TEXT INPUT */
+.text-input {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.text-input label {
+    font-size: 13px;
+    display: block;
+    margin-bottom: 8px;
+    opacity: 0.9;
+}
+
+.text-input input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 2px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.text-input input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+
+.text-input input:focus {
+    border-color: white;
+    background: rgba(255,255,255,0.3);
+}
+
+/* FILE INPUT */
+.file-upload {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.file-upload input[type="file"] {
+    width: 100%;
+    padding: 18px;
+    border-radius: 15px;
+    border: 2px dashed rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.file-upload input[type="file"]:hover {
+    background: rgba(255,255,255,0.3);
+    border-color: white;
+}
+
+.file-upload input[type="file"]::file-selector-button {
+    background: #ffffff;
+    color: #764ba2;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.file-upload input[type="file"]::file-selector-button:hover {
+    background: #f1f1f1;
+}
+
+/* BUTTON */
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(45deg, #00c896, #00a87a);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.submit-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+/* BACK LINK */
+.back-link {
+    display: inline-block;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #fff;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: 0.3s ease;
+}
+
+.back-link:hover {
+    opacity: 1;
+    transform: translateX(-3px);
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 35px 25px;
+    }
+
+    .card h2 {
+        font-size: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <div class="welcome-text">
+            Hi <strong><%= username %></strong> 👋
+        </div>
+
+        <h2>Secure Document Upload</h2>
+        <p class="subtitle">Your files are encrypted & safely stored</p>
+
+        <form action="/adddoc/<%= username %>" method="POST" enctype="multipart/form-data">
+            
+            <div class="text-input">
+                <label for="docName">Enter the name of document</label>
+                <input type="text" id="docName" name="docName" placeholder="e.g. Aadhaar Card" required>
+            </div>
+
+            <div class="file-upload">
+                <input type="file" name="photo" accept="image/*" required>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Upload Photo
+            </button>
+        </form>
+
+        <a href="/digilocker" class="back-link">
+            ← Back to Dashboard
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

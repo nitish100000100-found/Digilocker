@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Digi Locker Signup</title>
+    <link rel="stylesheet" href="/signup.css">
+</head>
+
+<body>
+
+    <div class="card">
+
+        <% if (errors && errors.length > 0) { %>
+            <div class="error-box">
+                <% errors.forEach(function(error) { %>
+                    <p class="error-text"><%= error %></p>
+                <% }); %>
+            </div>
+        <% } %>
+
+        <h1>Digi Locker</h1>
+        <p class="subtitle">Create your secure account</p>
+
+        <form id="signupForm" action="/signup" method="POST" autocomplete="off" novalidate>
+
+            <div class="input-group">
+                <input type="text" name="name" required>
+                <label>Full Name</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="confirm_password" required>
+                <label>Confirm Password</label>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+
+        </form>
+
+        <p class="switch-auth">
+            Already have an account?
+            <a href="/">Sign In</a>
+        </p>
+
+    </div>
+
+    <script>
+        window.addEventListener("pageshow", function () {
+            document.getElementById("signupForm").reset();
+        });
+    </script>
+
+</body>
+</html>

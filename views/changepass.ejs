@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Password Change</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            width: 400px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        h1 span {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* 🔴 Error Box */
+        .error-box {
+            background-color: #ffe6e6;
+            border: 1px solid #ff4d4d;
+            color: #cc0000;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .error-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .error-box li {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background: #5563d6;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: #f1f1f1;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #ddd;
+        }
+
+        .back-link {
+            margin-top: 10px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            font-size: 14px;
+            color: #667eea;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            Welcome to Password Change Page 👋 <br>
+            <span>
+                <%= username %>
+            </span>
+        </h1>
+
+        
+        <% if (errors && errors.length> 0) { %>
+            <div class="error-box">
+                <ul>
+                    <% errors.forEach(function(error) { %>
+                        <li>
+                            <%= error %>
+                        </li>
+                        <% }) %>
+                </ul>
+            </div>
+            <% } %>
+
+                <form action="/change-password" method="POST">
+
+                    <div class="form-group">
+                        <label>Enter Previous Password</label>
+                        <input type="password" name="oldPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Enter New Password</label>
+                        <input type="password" name="newPassword" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Confirm New Password</label>
+                        <input type="password" name="confirmPassword" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        Change Password
+                    </button>
+
+                </form>
+
+                <a href="/digilocker" class="btn-secondary">
+                    Don’t want to change password
+                </a>
+
+                <div class="back-link">
+                    <a href="/digilocker">⬅ Go Back to DigiLocker</a>
+                </div>
+
+    </div>
+
+</body>
+
+</html>

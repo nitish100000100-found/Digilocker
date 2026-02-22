@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DigiLocker Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/homepage.css">
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h1 class="logo">DigiLocker</h1>
+        <p class="subtitle">Secure Document Access</p>
+
+        <form id="loginForm" action="/signinsubmit" method="POST" autocomplete="off">
+
+            
+            <% if (errors && errors.length > 0) { %>
+                <div class="simple-error">
+                    <% errors.forEach(function(error) { %>
+                        <p><%= error %></p>
+                    <% }); %>
+                </div>
+            <% } %>
+
+            <div class="input-group">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+
+        </form>
+
+        <div class="signup">
+            <p>New here? <a href="/signup">Create Account</a></p>
+        </div>
+
+    </div>
+
+    <script>
+        window.addEventListener("pageshow", function () {
+            document.getElementById("loginForm").reset();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Add Password - DigiLocker</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+        height: 100vh;
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        width: 420px;
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    h1 {
+        color: #2a5298;
+        margin-bottom: 8px;
+    }
+
+    h2 {
+        color: #555;
+        font-weight: normal;
+        margin-bottom: 15px;
+    }
+
+    .error-box {
+        background: #ffe6e6;
+        color: #cc0000;
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 15px;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        text-align: left;
+        font-weight: bold;
+        margin-bottom: 6px;
+        font-size: 14px;
+    }
+
+    input {
+        padding: 10px;
+        margin-bottom: 18px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    input:focus {
+        border-color: #2a5298;
+        outline: none;
+    }
+
+    .btn {
+        display: inline-block;
+        text-align: center;
+        padding: 11px;
+        border-radius: 6px;
+        background: #2a5298;
+        color: white;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+        margin-bottom: 12px;
+        text-decoration: none;
+        border: none;
+    }
+
+    .btn:hover {
+        background: #1e3c72;
+    }
+
+    .back-btn {
+        background: #777;
+    }
+
+    .back-btn:hover {
+        background: #555;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Welcome to DigiLocker 👋</h1>
+    <h2>Hello <%= username %></h2>
+
+    <!-- ✅ ERROR DISPLAY -->
+    <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+        <div class="error-box">
+            <% errors.forEach(error => { %>
+                <div>• <%= error.msg %></div>
+            <% }) %>
+        </div>
+    <% } %>
+
+    <form action="/adddpass/<%= username %>" method="POST">
+
+        <label>Key (Name)</label>
+        <input type="text" name="key" placeholder="Enter key name">
+
+        <label>Value (Password)</label>
+        <input type="password" name="value" placeholder="Enter password">
+
+        <button type="submit" class="btn">
+            Save Password
+        </button>
+    </form>
+
+    <a href="/digilocker/<%= username %>" class="btn back-btn">
+        Back to DigiLocker
+    </a>
+
+</div>
+
+</body>
+</html>

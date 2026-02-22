@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DigiLocker Dashboard</title>
+    <link rel="stylesheet" href="/digilocker.css">
+</head>
+<body>
+    
+    <nav class="navbar">
+        <div class="logo">DigiLocker</div>
+
+        <div class="nav-links">
+            <a href="/adddoc/<%= username %>">Add Document</a>
+            <a href="/addpass/<%= username %>">Add Password</a>
+            <a href="/changepassword/<%= username %>">Reset Password</a>
+            <a href="/logout" class="logout">Sign Out</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+
+        <div class="welcome">
+            <h1>Welcome, <span><%= username %></span> 👋</h1>
+        </div>
+
+        <% if (keys.length === 0) { %>
+
+            <div class="empty-state">
+                <h2>No Items Found</h2>
+                <p>You haven't uploaded any documents or passwords yet.</p>
+
+                <div class="btn-group">
+                    <a class="primary-btn" href="/adddoc/<%= username %>">
+                        Upload Your First Document
+                    </a>
+
+                    <a class="secondary-btn" href="/addpass/<%= username %>">
+                        Add Your First Password
+                    </a>
+                </div>
+            </div>
+
+        <% } else { %>
+
+            <div class="doc-grid">
+                <% keys.forEach(function(key){ %>
+                    <div class="doc-card">
+                        <a href="/getdoc/<%= username %>/<%= key %>">
+                            <div class="doc-icon">📄</div>
+                            
+                            <div class="doc-name">
+                                <%= key.includes("thisistext") 
+                                    ? key.replace("thisistext", "") 
+                                    : key %>
+                            </div>
+
+                        </a>
+                    </div>
+                <% }) %>
+            </div>
+
+        <% } %>
+
+    </main>
+
+</body>
+</html>
