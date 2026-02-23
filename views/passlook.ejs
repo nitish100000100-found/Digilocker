@@ -81,11 +81,22 @@
             transition: 0.3s;
             font-size: 14px;
             font-weight: 500;
+            border: none;
+            cursor: pointer;
+            margin: 5px 0;
         }
 
         .btn:hover {
             background: #1c3947;
             transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            background: #c0392b;
+        }
+
+        .delete-btn:hover {
+            background: #962d22;
         }
 
         @keyframes fadeIn {
@@ -99,7 +110,6 @@
             }
         }
 
-        /* Small screen adjustments */
         @media (max-width: 480px) {
             .container {
                 padding: 25px;
@@ -135,6 +145,13 @@
         <a href="/digilocker" class="btn">
             Back to DigiLocker
         </a>
+
+        <!-- Delete Password Form with username + key -->
+        <form action="/deletePassword/<%= username %>/<%= key %>" method="POST">
+            <button type="submit" class="btn delete-btn">
+                Delete Password
+            </button>
+        </form>
 
     </div>
 
