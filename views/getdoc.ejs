@@ -68,11 +68,13 @@
 
         .btn {
             padding: 10px 20px;
-            text-decoration: none;
             border-radius: 8px;
             color: white;
             font-weight: bold;
             transition: 0.3s;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
         }
 
         .view-btn {
@@ -89,6 +91,14 @@
 
         .download-btn:hover {
             background: #218838;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+        }
+
+        .delete-btn:hover {
+            background: #b52a37;
         }
 
         @media (max-width: 500px) {
@@ -121,6 +131,14 @@
             <a href="/<%= value %>" download class="btn download-btn">
                 Download File
             </a>
+
+            <!-- Delete Document Form -->
+            <form action="/deleteDoc/<%= username %>/<%= key %>" method="POST">
+                <button type="submit" class="btn delete-btn">
+                    Delete Document
+                </button>
+            </form>
+
         </div>
     </div>
 
