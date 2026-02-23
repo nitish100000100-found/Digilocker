@@ -6,6 +6,7 @@ const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 
 const DB_URL =
   "mongodb+srv://nkdabur7:root@cluster0.hrebfsr.mongodb.net/digi?appName=Cluster0";
@@ -40,7 +41,7 @@ app.use(
     resave: false,
     saveUninitialized: true,
     store,
-  })
+  }),
 );
 
 app.use((req, res, next) => {
@@ -101,7 +102,7 @@ app.get("/digilocker", async (req, res) => {
     const excludedFields = ["_id", "username", "password", "__v"];
 
     const keys = Object.keys(user).filter(
-      (key) => !excludedFields.includes(key)
+      (key) => !excludedFields.includes(key),
     );
 
     res.render("digilocker", {
@@ -168,7 +169,7 @@ app.post(
           });
         });
     }
-  }
+  },
 );
 
 app.get("/changepassword/:username", (req, res) => {
@@ -223,10 +224,7 @@ app.post(
 
       const user = await User.findOne({ username });
 
-      const isMatch = await bcrypt.compare(
-        req.body.oldPassword,
-        user.password
-      );
+      const isMatch = await bcrypt.compare(req.body.oldPassword, user.password);
 
       if (!isMatch) {
         return res.render("changepass", {
@@ -246,7 +244,7 @@ app.post(
       console.log(err);
       res.send("Something went wrong");
     }
-  }
+  },
 );
 
 app.get("/addpass/:username", (req, res) => {
@@ -293,7 +291,7 @@ app.post(
       const excludedFields = ["_id", "username", "password", "__v"];
 
       const keys = Object.keys(userObj).filter(
-        (k) => !excludedFields.includes(k)
+        (k) => !excludedFields.includes(k),
       );
 
       res.render("digilocker", {
@@ -304,7 +302,7 @@ app.post(
       console.log(err);
       res.send("Cant add pass");
     }
-  }
+  },
 );
 
 app.get("/getdoc/:username/:key", async (req, res) => {
@@ -348,26 +346,63 @@ app.get("/adddoc/:username", (req, res) => {
   res.render("adddoc", { username });
 });
 
-app.post(
-  "/adddoc/:username",
-  upload.single("photo"),
-  async (req, res) => {
-    const { username } = req.params;
-    const { docName } = req.body;
+app.post("/adddoc/:username", upload.single("photo"), async (req, res) => {
+  const { username } = req.params;
+  const { docName } = req.body;
 
-    try {
-      const user = await User.findOne({ username });
+  try {
+    const user = await User.findOne({ username });
 
-      user.set(docName, req.file.filename);
+    user.set(docName, req.file.filename);
 
-      await user.save();
+    await user.save();
 
-      res.redirect("/digilocker");
-    } catch (err) {
-      res.send("somerror");
-    }
+    res.redirect("/digilocker");
+  } catch (err) {
+    res.send("somerror");
   }
-);
+});
+app.post("/deletePassword/:username/:key", async (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/");
+  }
+  const { username, key } = req.params;
+
+  await User.updateOne({ username }, { $unset: { [key]: "" } });
+
+  res.redirect("/digilocker");
+});
+app.post("/deleteDoc/:username/:key", async (req, res) => {
+  if (!req.session.isLoggedIn) {
+    return res.redirect("/");
+  }
+  const { username, key } = req.params;
+
+  try {
+    const user = await User.findOne({ username });
+
+    const filename = user[key];
+
+    fs.unlink("uploads/" + filename, async (err) => {
+      if (err) {
+        console.log("File not found or already deleted");
+
+        await User.updateOne({ username }, { $unset: { [key]: "" } });
+
+        return res.redirect("/digilocker");
+      } else {
+        console.log("File deleted successfully");
+
+        await User.updateOne({ username }, { $unset: { [key]: "" } });
+
+        return res.redirect("/digilocker");
+      }
+    });
+  } catch (error) {
+    console.log("Something went wrong:", error);
+    res.send("Error deleting document");
+  }
+});
 
 const PORT = 3000;
 
